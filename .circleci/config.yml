@@ -1,20 +1,17 @@
-version: 2
-
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  build:
-    docker:
-      - image: circleci/node:8.5.0
-      - image: circleci/mongo:3.4.9
+  build-and-test:
+    executor:
+      name: node/default
     steps:
       - checkout
-      - run:
-          name: Start app and test
-          command: |
-            yarn
-            yarn run start & sleep 5
-            curl http://localhost:3000/api/tags
-            yarn run test
-      - run:
-          name: Trigger integration tests
-          command: curl -X POST "https://circleci.com/api/v1.1/project/github/anishkny/realworld-e2e-test?circle-token=$CIRCLE_CI_TOKEN"
-
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test
