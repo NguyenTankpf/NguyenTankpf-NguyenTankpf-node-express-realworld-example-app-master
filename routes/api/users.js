@@ -60,7 +60,6 @@ router.post('/users/login', function (req, res, next) {
         if (err) {
             return next(err);
         }
-        console.log(1234);
         if (user) {
             user.token = user.generateJWT();
             return res.json({ user: user.toAuthJSON() });
