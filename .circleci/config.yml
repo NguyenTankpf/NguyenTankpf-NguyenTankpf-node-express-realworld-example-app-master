@@ -9,8 +9,27 @@ jobs:
             - checkout
             - node/with-cache:
                   steps:
-                      - run: npm install
+                      - run:
+                            name: Install project Dependencies
+                            command: npm install
+                      # - run:
+                      #       name: Run Lint
+                      #       command: npm run lint
+                      # - run:
+                      #       name: Run Formatter(Check Format)
+                      #       command: npm run check-format:all
+                      - run:
+                            name: Build project
+                            command: npm run build
+                     # - run:
+                      #      name: Deploy to FireBase
+                       #     command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --only hosting
 workflows:
     build-and-test:
+            filters:
+                branches:
+                only:
+                    - master
+                    - develop
         jobs:
             - build-and-test
