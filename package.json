@@ -9,7 +9,8 @@
         "dev": "nodemon ./app.js",
         "test": "newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json",
         "stop": "lsof -ti :3000 | xargs kill",
-        "mongo:stop": "docker stop realworld-mongo && docker rm realworld-mongo"
+        "mongo:stop": "docker stop realworld-mongo && docker rm realworld-mongo",
+        "firebase": "firebase"
     },
     "repository": {
         "type": "git",
@@ -38,6 +39,7 @@
         "underscore": "1.8.3"
     },
     "devDependencies": {
+        "firebase-tools": "^8.6.0",
         "newman": "^3.8.2",
         "nodemon": "^1.11.0"
     }
